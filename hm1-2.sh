@@ -2,12 +2,13 @@
 
 # our script
 DAEMON_PATH="D:/study/Devops/hometask1"
-NAME=procces
-DAEMON=process
+NAME=statusOS
+DAEMON=statusOS
 
 PIDFILE=D:/study/Devops/hometask1/$NAME.pid
 
-free -mo -s 10m &> test.csv &
+
+
 case "$1" in
 start)
     cd $DAEMON_PATH
