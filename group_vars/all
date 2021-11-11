@@ -1,5 +1,5 @@
 ---
-ansible_ssh_user : Evgeny
+ansible_ssh_user : evgeny
 ansible_ssh_pass : !vault |
           $ANSIBLE_VAULT;1.1;AES256
           38356133393361623464353665353433313663363436323638333761633934656337626339616232
@@ -15,5 +15,5 @@ ansible_sudo_pass: !vault |
           6130313936646163650a396661376339626664383535636339306638613237356339323662666136
           3066
 ansible_become: true
-app_path: /home/Evgeny/app
-venv_path: /home/Evgeny/app/venv
+app_path: /home/evgeny/app
+venv_path: /home/evgeny/app/venv
