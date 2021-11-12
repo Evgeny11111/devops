@@ -8,14 +8,14 @@
                 - python3-pip
                 - python3-setuptools
             state: present
-      - name: install virtual_enviroment
+      - name: install virtualenv
         pip:
             executable: /usr/local/bin/pip3
-            name: virtual_enviroment
+            name: virtualenv
             state: present
       - name: create environment
         pip:
-            virtual_enviroment: "{{ venv_path }}"
+            virtualenv: "{{ venv_path }}"
             virtualenv_command: python3 -m venv
             requirements: "{{ app_path }}/requirements.txt"
 
@@ -28,13 +28,13 @@
                 - python3-pip
                 - python3-setuptools
             state: present
-      - name: install virtual_enviroment
+      - name: install virtualenv
         pip:
             executable: pip3
-            name: virtual_enviroment
+            name: virtualenv
             state: present
       - name: create environment
         pip:
-            virtual_enviroment: "{{ venv_path }}"
+            virtualenv: "{{ venv_path }}"
             virtualenv_command: python3 -m venv
             requirements: "{{ app_path }}/requirements.txt"
