@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  vars_files:
+    - ./server_vars.yml
+  vars:
+    jar: 'java-1.0-SNAPSHOT.jar'
+  tasks:
+    - name: dir exists
+      file: path=/evgeny/ state=directory
+    - name: copy jar
+      copy:
+        src: './../target/{{ jar }}'
+        dest: '/evgeny/{{ jar }}'
+        mode: '0755'
+    - name: run jar
+      shell: java -jar /evgeny/{{ jar }} > /evgeny/result.txt
+    
