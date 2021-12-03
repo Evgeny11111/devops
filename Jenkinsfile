@@ -23,13 +23,10 @@ node {
         }
     }
     stage('allure') {
-        allure([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'target/allure-results']]
-            ])
+    stage('allure') {
+        allure([results: [[path: 'allure']]])
+
+    }
     }
     stage('deploy') {
         withCredentials([file(credentialsId: 'evgeny_ansible_pass', variable: 'VAULT_PASSWORD')]) {
