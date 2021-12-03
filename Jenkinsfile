@@ -5,18 +5,18 @@ node {
             
     }
     stage('build') {
-        sh 'mvn -f pom.xml clean verify'
+        sh 'mvn -f java/pom.xml clean verify'
     }
     stage('test') {
-        sh 'mvn -f pom.xml test'
+        sh 'mvn -f java/pom.xml test sonar:sonar'
     }
     stage('sonar_qube') {
         def scannerHome = tool 'MySonar';
         withSonarQubeEnv('MySonar') {
             sh "${scannerHome}/bin/sonar-scanner \
             -Dsonar.projectKey=pipeline \
-            -Dsonar.sources=src/main \
-            -Dsonar.tests=src/test \
+            -Dsonar.sources=java/src/main \
+            -Dsonar.tests=java/src/test \
             -Dsonar.java.binaries=target/classes \
             -Dsonar.junit.reportPaths=target/surefire-reports \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml"
