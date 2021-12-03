@@ -5,28 +5,31 @@ node {
             
     }
     stage('build') {
-        sh 'mvn -f java/pom.xml clean verify'
+        sh 'mvn -f pom.xml clean verify'
     }
     stage('test') {
-        sh 'mvn -f java/pom.xml test'
+        sh 'mvn -f pom.xml test'
     }
     stage('sonar_qube') {
         def scannerHome = tool 'MySonar';
         withSonarQubeEnv('MySonar') {
             sh "${scannerHome}/bin/sonar-scanner \
             -Dsonar.projectKey=pipeline \
-            -Dsonar.sources=java/src/main \
-            -Dsonar.tests=java/src/test \
+            -Dsonar.sources=src/main \
+            -Dsonar.tests=src/test \
             -Dsonar.java.binaries=target/classes \
             -Dsonar.junit.reportPaths=target/surefire-reports \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml"
         }
     }
     stage('allure') {
-    stage('allure') {
-        allure([results: [[path: 'allure']]])
-
-    }
+        allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'target/allure-results']]
+            ])
     }
     stage('deploy') {
         withCredentials([file(credentialsId: 'evgeny_ansible_pass', variable: 'VAULT_PASSWORD')]) {
